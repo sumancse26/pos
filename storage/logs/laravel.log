@@ -1,0 +1,1 @@
+[2024-08-26 10:14:49] local.ERROR: Profile update error: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'email' cannot be null (Connection: mysql, SQL: update `users` set `firstName` = John, `lastName` = John updated, `email` = ?, `mobile` = 01796321547, `users`.`updated_at` = 2024-08-26 10:14:49 where `email` = abc@gmail.com and `id` = 1)  
