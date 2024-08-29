@@ -162,20 +162,20 @@
 </div>
 
 <script>
-    // getList();
-    // async function getList() {
-    //     showLoader();
-    //     let res=await axios.get("/summary");
+    getList();
+    async function getList() {
+        showLoader();
+        let res=await axios.get("/summary");
 
-    //     document.getElementById('product').innerText=res.data['product']
-    //     document.getElementById('category').innerText=res.data['category']
-    //     document.getElementById('customer').innerText=res.data['customer']
-    //     document.getElementById('invoice').innerText=res.data['invoice']
-    //     document.getElementById('total').innerText=res.data['total']
-    //     document.getElementById('vat').innerText=res.data['vat']
-    //     document.getElementById('payable').innerText=res.data['payable']
+        document.getElementById('product').innerText=res.data.summary['product']
+        document.getElementById('category').innerText=res.data.summary['category']
+        document.getElementById('customer').innerText=res.data.summary['customer']
+        document.getElementById('invoice').innerText=res.data.summary['invoice']
+        document.getElementById('total').innerText=res.data.summary['totalSale']
+        document.getElementById('vat').innerText=res.data.summary['totalVat']
+        document.getElementById('payable').innerText=res.data.summary['totalCollection']
 
 
-    //     hideLoader();
-    //}
+        hideLoader();
+    }
 </script>
