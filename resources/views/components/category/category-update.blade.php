@@ -32,9 +32,9 @@
    async function FillUpUpdateForm(id){
         document.getElementById('updateID').value=id;
         showLoader();
-        let res=await axios.post("/category-by-id",{id:id})
+        let res=await axios.post("/get-category-by-id",{id:id})
         hideLoader();
-        document.getElementById('categoryNameUpdate').value=res.data['name'];
+        document.getElementById('categoryNameUpdate').value=res.data.category['name'];
     }
 
     async function Update() {
@@ -51,7 +51,7 @@
             let res = await axios.post("/update-category",{name:categoryName,id:updateID})
             hideLoader();
 
-            if(res.status===200 && res.data===1){
+            if(res.status===200 && res.data.success){
                 document.getElementById("update-form").reset();
                 successToast("Request success !")
                 await getList();

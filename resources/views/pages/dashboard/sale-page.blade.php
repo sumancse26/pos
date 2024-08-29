@@ -1,3 +1,4 @@
+
 @extends('layout.sidenav-layout')
 @section('content')
     <div class="container-fluid">
@@ -245,13 +246,13 @@
 
 
         async function CustomerList(){
-            let res=await axios.get("/list-customer");
+            let res=await axios.get("/get-customer");
             let customerList=$("#customerList");
             let customerTable=$("#customerTable");
             customerTable.DataTable().destroy();
             customerList.empty();
 
-            res.data.forEach(function (item,index) {
+            res.data.customerList?.forEach(function (item,index) {
                 let row=`<tr class="text-xs">
                         <td><i class="bi bi-person"></i> ${item['name']}</td>
                         <td><a data-name="${item['name']}" data-email="${item['email']}" data-id="${item['id']}" class="btn btn-outline-dark addCustomer  text-xxs px-2 py-1  btn-sm m-0">Add</a></td>
@@ -282,13 +283,13 @@
 
 
         async function ProductList(){
-            let res=await axios.get("/list-product");
+            let res=await axios.get("/get-product");
             let productList=$("#productList");
             let productTable=$("#productTable");
             productTable.DataTable().destroy();
             productList.empty();
 
-            res.data.forEach(function (item,index) {
+            res.data.productList?.forEach(function (item,index) {
                 let row=`<tr class="text-xs">
                         <td> <img class="w-10" src="${item['img_url']}"/> ${item['name']} ($ ${item['price']})</td>
                         <td><a data-name="${item['name']}" data-price="${item['price']}" data-id="${item['id']}" class="btn btn-outline-dark text-xxs px-2 py-1 addProduct  btn-sm m-0">Add</a></td>
@@ -342,9 +343,11 @@
             else{
 
                 showLoader();
-                let res=await axios.post("/invoice-create",Data)
+                let res=await axios.post("/create-invoice",Data)
                 hideLoader();
-                if(res.data===1){
+
+                
+                if(res.data.success){
                     window.location.href='/invoicePage'
                     successToast("Invoice Created");
                 }

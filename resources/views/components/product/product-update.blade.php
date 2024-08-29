@@ -25,7 +25,7 @@
                                 <label class="form-label mt-2">Unit</label>
                                 <input type="text" class="form-control" id="productUnitUpdate">
                                 <br/>
-                                <img class="w-15" id="oldImg" src="{{asset('images/default.jpg')}}"/>
+                                <img class="w-15" id="oldImg" src=""/>
                                 <br/>
                                 <label class="form-label mt-2">Image</label>
                                 <input oninput="oldImg.src=window.URL.createObjectURL(this.files[0])"  type="file" class="form-control" id="productImgUpdate">
@@ -55,31 +55,30 @@
 
 
     async function UpdateFillCategoryDropDown(){
-        let res = await axios.get("/list-category")
-        res.data.forEach(function (item,i) {
+        let res = await axios.get("/get-category")
+        res.data.categoryList?.forEach(function (item,i) {
             let option=`<option value="${item['id']}">${item['name']}</option>`
             $("#productCategoryUpdate").append(option);
         })
     }
 
 
-    async function FillUpUpdateForm(id,filePath){
+    async function FillUpUpdateForm(id){
 
         document.getElementById('updateID').value=id;
         document.getElementById('filePath').value=filePath;
-        document.getElementById('oldImg').src=filePath;
-
 
         showLoader();
         await UpdateFillCategoryDropDown();
 
-        let res=await axios.post("/product-by-id",{id:id})
+        let res=await axios.post("/get-product-by-id",{product_id:id})
         hideLoader();
 
-        document.getElementById('productNameUpdate').value=res.data['name'];
-        document.getElementById('productPriceUpdate').value=res.data['price'];
-        document.getElementById('productUnitUpdate').value=res.data['unit'];
-        document.getElementById('productCategoryUpdate').value=res.data['category_id'];
+        document.getElementById('productNameUpdate').value=res.data.product['name'];
+        document.getElementById('productPriceUpdate').value=res.data.product['price'];
+        document.getElementById('productUnitUpdate').value=res.data.product['unit'];
+        document.getElementById('productCategoryUpdate').value=res.data.product['category_id'];
+        document.getElementById('oldImg').src=res.data.product['img_url'];
 
     }
 
@@ -92,7 +91,6 @@
         let productPriceUpdate = document.getElementById('productPriceUpdate').value;
         let productUnitUpdate = document.getElementById('productUnitUpdate').value;
         let updateID=document.getElementById('updateID').value;
-        let filePath=document.getElementById('filePath').value;
         let productImgUpdate = document.getElementById('productImgUpdate').files[0];
 
 
@@ -114,13 +112,12 @@
             document.getElementById('update-modal-close').click();
 
             let formData=new FormData();
-            formData.append('img',productImgUpdate)
-            formData.append('id',updateID)
-            formData.append('name',productNameUpdate)
-            formData.append('price',productPriceUpdate)
-            formData.append('unit',productNameUpdate)
-            formData.append('category_id',productCategoryUpdate)
-            formData.append('file_path',filePath)
+            formData.append('image',productImgUpdate);
+            formData.append('id',updateID);
+            formData.append('name',productNameUpdate);
+            formData.append('price',productPriceUpdate);
+            formData.append('unit',productUnitUpdate);
+            formData.append('category_id',productCategoryUpdate);
 
             const config = {
                 headers: {
@@ -132,7 +129,7 @@
             let res = await axios.post("/update-product",formData,config)
             hideLoader();
 
-            if(res.status===200 && res.data===1){
+            if(res.status===200 && res.data.success){
                 successToast('Request completed');
                 document.getElementById("update-form").reset();
                 await getList();

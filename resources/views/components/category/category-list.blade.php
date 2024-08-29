@@ -39,7 +39,7 @@ async function getList() {
 
 
     showLoader();
-    let res=await axios.get("/list-category");
+    let res=await axios.get("/get-category");
     hideLoader();
 
     let tableList=$("#tableList");
@@ -48,7 +48,7 @@ async function getList() {
     tableData.DataTable().destroy();
     tableList.empty();
 
-    res.data.forEach(function (item,index) {
+    res.data.categoryList?.forEach(function (item,index) {
         let row=`<tr>
                     <td>${index+1}</td>
                     <td>${item['name']}</td>

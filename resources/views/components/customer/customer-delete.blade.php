@@ -24,7 +24,7 @@
             showLoader();
             let res=await axios.post("/delete-customer",{id:id})
             hideLoader();
-            if(res.data===1){
+            if(res.data.success){
                 successToast("Request completed")
                 await getList();
             }

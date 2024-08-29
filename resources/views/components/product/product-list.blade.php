@@ -39,7 +39,7 @@ async function getList() {
 
 
     showLoader();
-    let res=await axios.get("/list-product");
+    let res=await axios.get("/get-product");
     hideLoader();
 
     let tableList=$("#tableList");
@@ -48,7 +48,7 @@ async function getList() {
     tableData.DataTable().destroy();
     tableList.empty();
 
-    res.data.forEach(function (item,index) {
+    res.data.productList?.forEach(function (item,index) {
         let row=`<tr>
                     <td><img class="w-15 h-auto" alt="" src="${item['img_url']}"></td>
                     <td>${item['name']}</td>
@@ -65,7 +65,7 @@ async function getList() {
     $('.editBtn').on('click', async function () {
            let id= $(this).data('id');
            let filePath= $(this).data('path');
-           await FillUpUpdateForm(id,filePath)
+           await FillUpUpdateForm(id)
            $("#update-modal").modal('show');
     })
 

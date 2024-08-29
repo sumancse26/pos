@@ -161,9 +161,6 @@
     </div>
 </div>
 
-
-
-
 <script>
     // getList();
     // async function getList() {
@@ -180,5 +177,5 @@
 
 
     //     hideLoader();
-    }
+    //}
 </script>

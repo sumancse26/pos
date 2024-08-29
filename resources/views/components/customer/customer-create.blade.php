@@ -54,7 +54,7 @@
             let res = await axios.post("/create-customer",{name:customerName,email:customerEmail,mobile:customerMobile})
             hideLoader();
 
-            if(res.status===201){
+            if(res.status===200 && res.data.success){
 
                 successToast('Request completed');
 

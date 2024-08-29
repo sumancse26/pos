@@ -82,7 +82,7 @@
 
         invoiceList.empty();
 
-        res.data['product'].forEach(function (item,index) {
+        res.data.products.forEach(function (item,index) {
             let row=`<tr class="text-xs">
                         <td>${item['product']['name']}</td>
                         <td>${item['qty']}</td>
@@ -91,19 +91,12 @@
             invoiceList.append(row)
         });
 
-
-
         $("#details-modal").modal('show')
     }
 
     function PrintPage() {
         let printContents = document.getElementById('invoice').innerHTML;
-        let originalContents = document.body.innerHTML;
         document.body.innerHTML = printContents;
         window.print();
-        document.body.innerHTML = originalContents;
-        setTimeout(function() {
-            location.reload();
-        }, 1000);
     }
 </script>

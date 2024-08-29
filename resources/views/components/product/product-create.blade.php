@@ -52,8 +52,8 @@
     FillCategoryDropDown();
 
     async function FillCategoryDropDown(){
-        let res = await axios.get("/list-category")
-        res.data.forEach(function (item,i) {
+        let res = await axios.get("/get-category")
+        res.data.categoryList?.forEach(function (item,i) {
             let option=`<option value="${item['id']}">${item['name']}</option>`
             $("#productCategory").append(option);
         })
@@ -89,7 +89,7 @@
             document.getElementById('modal-close').click();
 
             let formData=new FormData();
-            formData.append('img',productImg)
+            formData.append('image',productImg)
             formData.append('name',productName)
             formData.append('price',productPrice)
             formData.append('unit',productUnit)
@@ -105,7 +105,7 @@
             let res = await axios.post("/create-product",formData,config)
             hideLoader();
 
-            if(res.status===201){
+            if(res.status===200 && res.data.success){
                 successToast('Request completed');
                 document.getElementById("save-form").reset();
                 await getList();

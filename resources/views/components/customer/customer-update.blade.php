@@ -40,11 +40,11 @@
     async function FillUpUpdateForm(id){
         document.getElementById('updateID').value=id;
         showLoader();
-        let res=await axios.post("/customer-by-id",{id:id})
+        let res=await axios.post("/get-customer-by-id",{id:id})
         hideLoader();
-        document.getElementById('customerNameUpdate').value=res.data['name'];
-        document.getElementById('customerEmailUpdate').value=res.data['email'];
-        document.getElementById('customerMobileUpdate').value=res.data['mobile'];
+        document.getElementById('customerNameUpdate').value=res.data.customer['name'];
+        document.getElementById('customerEmailUpdate').value=res.data.customer['email'];
+        document.getElementById('customerMobileUpdate').value=res.data.customer['mobile'];
     }
 
 
@@ -75,7 +75,7 @@
 
             hideLoader();
 
-            if(res.status===200 && res.data===1){
+            if(res.status===200 && res.data.success){
 
                 successToast('Request completed');
 
