@@ -56,7 +56,7 @@ class UserController extends Controller
                 'success' => true,
                 'message' => 'Login Successful',
                 'token' => $token
-            ])->cookie('token', $token, 60 * 24 * 30, '/');
+            ])->cookie('token', $token, 7 * 60 * 24 * 30, '/');
         } catch (\Exception $ex) {
 
             return response()->json([

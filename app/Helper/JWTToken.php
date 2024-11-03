@@ -16,7 +16,7 @@ class JWTToken
         $payload = [
             'iss' => 'token',
             'iat' => time(),
-            'exp' => time() * 60 * 60,
+            'exp' => time() + (7 * 24 * 60 * 60),
             'userEmail' => $userEmail,
             'userId' => $userId,
 
@@ -50,7 +50,7 @@ class JWTToken
             $payload = [
                 'iss' => 'token',
                 'iat' => time(),
-                'exp' => time() + 60 * 2,
+                'exp' => time() + (7 * 24 * 60 * 60),
                 'userEmail' => $userEmail,
                 'userId' => "0",
 
