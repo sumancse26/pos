@@ -16,8 +16,7 @@ class ApiTokenVerification
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $token = $request->cookie('token');
-
+        $token = $request->header('Authorization');
         try {
             $result = JWTToken::VerifyToken($token);
             if ($result == 'Unauthorized') {

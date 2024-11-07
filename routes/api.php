@@ -72,5 +72,5 @@ Route::get('get-invoice', [InvoiceController::class, 'getInvoice'])->middleware(
 
 #summary and reports
 Route::get('summary', [DashboardController::class, 'dashboardSummary'])->middleware(ApiTokenVerification::class);
-Route::get('sales-report/{formDate}/{toDate}', [ReportController::class, 'salesReport'])->middleware(ApiTokenVerification::class);
+Route::get('sales-report/{formDate}/{toDate}', [ReportController::class, 'generateReport'])->middleware(ApiTokenVerification::class);
 Route::get('reportPage', [ReportController::class, 'reportPAge'])->middleware(ApiTokenVerification::class);
